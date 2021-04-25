@@ -75,9 +75,15 @@ public class Mining : MonoBehaviour
     }
 
     void Attack(){
-        Debug.Log("I'm hittin summit");
+        //Debug.Log("I'm hittin summit");
         //Destroy(target);
         StartCoroutine(AttackCooldown(attackCooldown));
+        HealthComponent health = target.GetComponent<HealthComponent>();
+        if (health)
+        {
+            health.ProcessHit(5.0f);
+        }
+
     }
 
     IEnumerator AttackCooldown(float attackCooldown){

@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     [Range(1, 20)] public float throwForce = 10f;
     [Range(1, 50)] public float flareDespawnTime = 10f;
 
+    public ItemObject flare;
+
     float moveX = 0f;
     bool jump = false;
     float pi = 3.1415f;
@@ -60,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         }     
 
         //flare on right mouse button
-        if(Input.GetMouseButtonDown(1) && hasFlare){
+        if(Input.GetMouseButtonDown(1) && gameObject.GetComponent<InventoryComponent>().RemoveItem(flare)){
             GameObject flare = Instantiate(flarePrefab, firePoint.position, firePoint.rotation*Quaternion.Euler(0, 0, -90));
             Rigidbody2D rb = flare.GetComponent<Rigidbody2D>();
             Vector3 direction = pickPos.position - transform.position;
