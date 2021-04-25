@@ -77,8 +77,8 @@ public class ZombieInputComponent : InputComponent
     {
         animator.SetBool("Hit", false);
         animator.SetBool("Dead", true);
-        Destroy(GetComponent<BoxCollider2D>());
-        Destroy(GetComponent<Rigidbody2D>());
+        //Destroy(GetComponent<BoxCollider2D>());
+        //Destroy(GetComponent<Rigidbody2D>());
         Destroy(gameObject,5);
         Destroy(movementComponent);
         Destroy(this);
