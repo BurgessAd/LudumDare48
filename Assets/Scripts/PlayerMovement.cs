@@ -5,28 +5,27 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController2D controller;
-    
     public CircleCollider2D pickaxeCheck;
     public Transform firePoint;
     public GameObject flarePrefab;
     public Transform pickPos;
     public Transform headPos;
+    public Transform pivotPos;
 
-    public bool hasFlare = false;
-    public float runSpeed = 40f;
-    public float throwForce = 10f;
-    public float flareDespawnTime = 10f;
+    [HideInInspector] public bool hasFlare;
+    [Range(1,100)] public float runSpeed = 40f;
+    [Range(1, 20)] public float throwForce = 10f;
+    [Range(1, 50)] public float flareDespawnTime = 10f;
+
     float moveX = 0f;
     bool jump = false;
-    float pi = 3.14f;
+    float pi = 3.1415f;
 
-    void start(){
-
+    void Start(){
+        hasFlare = true;
     }
 
     void Update(){
-        Debug.Log("I think we look for in the inventory here flares here");
-        Debug.Log("If we find one, set 'hasFlare = true;'");
         ProcessInputs();
     }
 
@@ -43,16 +42,16 @@ public class PlayerMovement : MonoBehaviour
         Vector2 headDirection = new Vector2(mousePos.x - headPos.position.x, mousePos.y - headPos.position.y);
         float headAngle = Mathf.Atan(headDirection.y/headDirection.x);
         //adding a buffer to stop spin bot jittering
-        if(headDirection.x >= 1 && !controller.m_FacingRight){
+        if(pickPos.position.x > headPos.position.x && !controller.m_FacingRight){
             controller.Flip();
         }
-        if(headDirection.x < -1 && controller.m_FacingRight){
+        if(pickPos.position.x < headPos.position.x && controller.m_FacingRight){
             controller.Flip();
         }
-        if((headAngle > -pi/4 && headAngle < pi/4) && headDirection.x >= 0){
+        if((headAngle > -pi/6 && headAngle < pi/4) && headDirection.x > 0){
             headPos.right = headDirection;
         }
-        if((headAngle > -pi/4 && headAngle < pi/4) && headDirection.x < 0){
+        if((headAngle > -pi/6 && headAngle < pi/4) && headDirection.x < 0){
             headPos.right = -headDirection;
         }
 

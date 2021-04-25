@@ -9,8 +9,10 @@ public class Mining : MonoBehaviour
     [SerializeField] private SpriteRenderer crosshair;
     [Range(1,20)] [SerializeField] private float pickRange = 10f;
     [SerializeField] private Transform pickPos;
+    [SerializeField] private TrailRenderer swingTrail;
+    [SerializeField] private Transform swingEnd;
     private bool inRange = true;
-
+    
     public float mineCooldown = 1f;
     public float mineStrength;
     public float attackCooldown = 1f;
