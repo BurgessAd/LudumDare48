@@ -36,9 +36,9 @@ public class LightDiminish : MonoBehaviour
                 onSurface = false;
             }
 
-            if(globalLight.intensity != 0.8f)
+            if(globalLight.intensity != 0.58f)
 			{
-                globalLight.intensity = Mathf.Lerp(globalLight.intensity, 0.8f, Time.deltaTime);
+                globalLight.intensity = Mathf.Lerp(globalLight.intensity, 0.58f, Time.deltaTime);
             }
             if(persLight.intensity != 1)
 			{
