@@ -85,7 +85,7 @@ public class MovementComponent : MonoBehaviour
 
             currentMoveSpeed.x = Mathf.Clamp(currentMoveSpeed.x + Mathf.Sign(desiredMoveSpeed.x - currentMoveSpeed.x) * Mathf.Clamp(Mathf.Abs(desiredMoveSpeed.x - currentMoveSpeed.x), 0, acceleration.Value), -1.0f, 1.0f);
             currentMoveSpeed.y = Mathf.Clamp(currentMoveSpeed.y + Mathf.Sign(desiredMoveSpeed.y - currentMoveSpeed.y) * Mathf.Clamp(Mathf.Abs(desiredMoveSpeed.y - currentMoveSpeed.y), 0, acceleration.Value), -1.0f, 1.0f);
-            body.velocity = new Vector2(currentMoveSpeed.x * movementSpeed.Value, currentMoveSpeed.y * movementSpeed.Value);
+            body.velocity = new Vector2(currentMoveSpeed.x * movementSpeed.Value, body.velocity.y);
 			if (Vector2.Dot(desiredMoveSpeed, Vector2.right) < 0)
 			{
                 sr.flipX = true;

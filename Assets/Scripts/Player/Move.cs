@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class Move : MonoBehaviour
 {
-    private float forwardSpeed = 0f;
-    private float sideSpeed = 0f;
-    private float speed = 0.05f;
+   
     public Canvas inventoryUI;
     private InventoryComponent inventory;
     // Start is called before the first frame update
@@ -21,28 +19,6 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //movement for the player
-        forwardSpeed = Input.GetAxis("Vertical");
-        sideSpeed = Input.GetAxis("Horizontal");
-
-
-// Transform camTransform = Camera.main.gameObject.transform;
-
-        Vector3 velocity = Vector3.up * forwardSpeed + Vector3.right * sideSpeed;
-        velocity = velocity.normalized;
-        //velocity = Vector3.ProjectOnPlane(velocity, Vector3.up);
-        //velocity *= speed;
-        ///Rigidbody rb = gameObject.GetComponent<Rigidbody>();
-        //rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
-        //rb.AddForce(-9 * Vector3.up);
-        //jump with space key
-
-        //if (Input.GetKeyDown("space") && rb.velocity.y == 0)
-        //{
-        // rb.velocity += Vector3.up * 15;
-        //}
-
-        gameObject.transform.position += speed*velocity;
 
 		if (Input.GetKeyDown("i"))
 		{

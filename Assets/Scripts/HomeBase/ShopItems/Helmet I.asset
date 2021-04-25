@@ -16,6 +16,8 @@ MonoBehaviour:
   cost:
   - item: {fileID: 11400000, guid: 24758873f6a76eb45acf09eba632b0f5, type: 2}
     currentAmount: 5
+  - item: {fileID: 11400000, guid: e2bd1b26b752ec44cbbc60ec53fc3c77, type: 2}
+    currentAmount: 2
   bought: 0
   lightlifeBuff: 50
   pickaxeBuff: 0

@@ -21,6 +21,7 @@ public class HealthComponent : MonoBehaviour
         CurrentHP -= damage;
 
         OnCurrentHealthChanged?.Invoke(CurrentHP/StartingHP);
+        OnCurrentHealthReduced?.Invoke();
 
         if (CurrentHP <= 0 && !dead)
         {
@@ -31,10 +32,18 @@ public class HealthComponent : MonoBehaviour
         }
     }
 
+    public void Heal()
+	{
+        CurrentHP = StartingHP;
+        OnCurrentHealthChanged?.Invoke(CurrentHP / StartingHP);
+    }
+
     public void Die()
     {
         CurrentHP = -1f;
     }
+
+    public event Action OnCurrentHealthReduced;
 
     public event Action OnObjectDied;
     public event Action<float> OnCurrentHealthChanged;

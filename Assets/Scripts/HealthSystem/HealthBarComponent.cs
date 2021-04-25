@@ -25,7 +25,7 @@ public class HealthBarComponent : MonoBehaviour
         GetComponent<HealthComponent>().OnCurrentHealthChanged += HealthChanged;
         if (GetComponent<SpriteRenderer>() != null)
         {
-            scale = GetComponent<SpriteRenderer>().sprite.textureRect.height*transform.localScale.y / 128f;
+            scale = GetComponent<SpriteRenderer>().sprite.textureRect.height*transform.localScale.y*(100/GetComponent<SpriteRenderer>().sprite.pixelsPerUnit) / 128f;
         }
         else
         {
@@ -33,7 +33,7 @@ public class HealthBarComponent : MonoBehaviour
             {
                 if (child.gameObject.GetComponent<SpriteRenderer>().sprite != null)
                 {
-                    scale = child.gameObject.GetComponent<SpriteRenderer>().sprite.textureRect.height / 128f;
+                    scale = child.gameObject.GetComponent<SpriteRenderer>().sprite.textureRect.height * (100/GetComponent<SpriteRenderer>().sprite.pixelsPerUnit ) / 128f;
                     break;
                 }
                 

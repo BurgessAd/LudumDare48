@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58680c6bcc196a04bb696192b52c7cec, type: 3}
+  m_Name: DiamondPick
+  m_EditorClassIdentifier: 
+  shopImage: {fileID: 21300000, guid: 9e9f577eee5607b4480eacb2c0fec363, type: 3}
+  cost:
+  - item: {fileID: 11400000, guid: c6642e7134e028c4f9fbfb6aea165429, type: 2}
+    currentAmount: 6
+  bought: 0
+  lightlifeBuff: 0
+  pickaxeBuff: 10
+  text: 'Diamond Pickaxe: +2 Pick'

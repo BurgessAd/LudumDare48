@@ -36,11 +36,12 @@ public class ItemObjectPickable : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void OnTriggerStay2D(Collider2D other)
+    public void OnCollisionEnter2D(Collision2D other)
     {
-        InventoryComponent inv = other.GetComponent<InventoryComponent>();
-        if (inv != null)
+        
+        if (other.gameObject.name == "Player")
         {
+            InventoryComponent inv = other.gameObject.GetComponent<InventoryComponent>();
             inv.AddItem(objectType, objectNum);
             soundComponent.Play(audioSource);
             spriteRenderer.enabled = false;

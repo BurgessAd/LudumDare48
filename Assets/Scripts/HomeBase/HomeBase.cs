@@ -27,7 +27,7 @@ public class HomeBase : MonoBehaviour
             x = i;
             temp.GetComponent<Button>().onClick.AddListener(delegate { BuyItem(x); });
             temp.GetComponent<Image>().transform.localScale = Vector3.one;
-            temp.GetComponent<ShopItemUI>().Setup(shopItems[i].text, shopItems[i].cost);
+            temp.GetComponent<ShopItemUI>().Setup(shop,shopItems[i].text, shopItems[i].cost);
         }
     }
 
@@ -72,6 +72,7 @@ public class HomeBase : MonoBehaviour
 		{
             shop.enabled = true;
             player.GetComponent<LightDiminish>().refill();
+            player.GetComponent<HealthComponent>().Heal();
             
         }
     }

@@ -19,6 +19,8 @@ public class ZombieInputComponent : InputComponent
     public GameObject target;
     public float readjustTimer = 0;
     public bool readjusting = false;
+    private float hitTimer = 0;
+    private bool hit = false;
 
     int count = 0;
     public override Vector2 GetLookDirection()
@@ -52,6 +54,7 @@ public class ZombieInputComponent : InputComponent
         rot.Value = 6f;
        // lookdir.SetLookSpeed(rot);
         gameObject.GetComponent<HealthComponent>().OnObjectDied += Die;
+        gameObject.GetComponent<HealthComponent>().OnCurrentHealthReduced += Hit;
 
 
 
@@ -59,11 +62,19 @@ public class ZombieInputComponent : InputComponent
         wait = Random.Range(2, 5);
     }
 
+    public void Hit()
+	{
+        animator.SetBool("Hit", true);
+        attacking = false;
+        hit = true;
+        hitTimer = Time.time;
+    }
+
+
 
     public void Die()
     {
-        Destroy(gameObject.GetComponent<BoxCollider2D>());
-        
+        Destroy(gameObject);  
     }
 
     void FixedUpdate()
@@ -75,93 +86,97 @@ public class ZombieInputComponent : InputComponent
             
         }
 
-        
-        
-
-
-
-        if (readjusting && Time.time - readjustTimer > 1)
+        if (hit && Time.time - hitTimer > 0.5f)
         {
-            readjustTimer = Time.time;
-            dir = transform.right;
-            readjusting = false;
-
+            hit = false;
+            animator.SetBool("Hit", false);
         }
-
-
-        animator.SetFloat("Speed", dir.magnitude);
-        if (target!=null&&(target.transform.position - gameObject.transform.position).magnitude < visionDist)
+        else
         {
-            
-            if(Time.time - readjustTimer > 3)
+
+
+
+            if (readjusting && Time.time - readjustTimer > 1)
             {
-                dir = Vector2.right*(target.transform.position.x - gameObject.transform.position.x);
-                
+                readjustTimer = Time.time;
+                dir = transform.right;
+                readjusting = false;
+
             }
-            
-            
-            animator.SetBool("Attacking", attacking);
-                
-;            
 
-        }
 
-        else if (Time.time - timer > wait)
-        {
-            //target = null;
-
-            wait = Random.Range(0, 3);
-            timer = Time.time;
-            if (dir == Vector2.zero)
+            animator.SetFloat("Speed", dir.magnitude);
+            if (target != null && (target.transform.position - gameObject.transform.position).magnitude < visionDist)
             {
 
-                if (Random.Range(0, 2) == 1)
+              
+                    dir = Vector2.right * (target.transform.position.x - gameObject.transform.position.x);
+
+               
+
+
+                animator.SetBool("Attacking", attacking);
+
+                
+
+            }
+
+            else if (Time.time - timer > wait)
+            {
+                //target = null;
+
+                wait = Random.Range(0, 3);
+                timer = Time.time;
+                if (dir == Vector2.zero)
                 {
 
-                    dir = Vector2.right;
-                    //GetComponent<SpriteRenderer>().flipX = false;
+                    if (Random.Range(0, 2) == 1)
+                    {
+
+                        dir = Vector2.right;
+                        //GetComponent<SpriteRenderer>().flipX = false;
+
+                    }
+                    else
+                    {
+                        dir = Vector2.left;
+
+                        //GetComponent<SpriteRenderer>().flipX = true;
+                    }
 
                 }
                 else
                 {
-                    dir = Vector2.left;
-
-                    //GetComponent<SpriteRenderer>().flipX = true;
-                    }				
-                
-            }
-            else
-            {
-                dir = Vector2.zero;
-            }
-        }
-        if (attacking)
-        {
-            if ( Time.time - attackTimer > attackDelay)
-            {
-                attackTimer = Time.time;
-                HealthComponent health = target.GetComponent<HealthComponent>();
-                if (health)
-                {
-                    health.ProcessHit(5.0f);
+                    dir = Vector2.zero;
                 }
             }
-            if (readjusting)
+            if (attacking)
+            {
+                if (Time.time - attackTimer > attackDelay)
+                {
+                    attackTimer = Time.time;
+                    HealthComponent health = target.GetComponent<HealthComponent>();
+                    if (health)
+                    {
+                        health.ProcessHit(5.0f);
+                    }
+                }
+                if (readjusting)
+                {
+                    movementComponent.SetDesiredSpeed(dir);
+                }
+                else
+                {
+                    movementComponent.SetDesiredSpeed(Vector2.zero);
+                }
+
+            }
+            else
             {
                 movementComponent.SetDesiredSpeed(dir);
             }
-            else
-            {
-                movementComponent.SetDesiredSpeed(Vector2.zero);
-            }
-            
+            //lookdir.SetDesiredLookDirection(-dir);
         }
-        else
-        {
-            movementComponent.SetDesiredSpeed(dir);
-        }
-        //lookdir.SetDesiredLookDirection(-dir);
-
     }
     public void OnCollisionEnter2D(Collision2D c)
     {
@@ -171,6 +186,7 @@ public class ZombieInputComponent : InputComponent
         {
             
             attacking = true;
+            animator.SetBool("Attacking", attacking);
         }
     }
 
@@ -180,6 +196,7 @@ public class ZombieInputComponent : InputComponent
         {
             
             attacking = false;
+            animator.SetBool("Attacking", attacking);
         }
     }
 

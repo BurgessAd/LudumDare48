@@ -60,6 +60,30 @@ public class InventoryComponent : MonoBehaviour
         OnInventoryChanged?.Invoke();
     }
 
+
+
+    public bool RemoveItem(ItemObject _item)
+    {
+       
+           
+                for (int i = 0; i < Container.Count; i++)
+                {
+                    if (Container[i].item == _item && Container[i].currentAmount >= 1)
+                    {
+                        Container[i].AddAmount(-1);
+                        OnInventoryChanged?.Invoke();
+                        return true;
+                    
+                    }
+                }
+            
+            
+        
+        
+        return false;
+
+    }
+
     public bool RemoveItems(List<InventorySlot> _cost)
 	{
         int count = 0;
@@ -68,7 +92,7 @@ public class InventoryComponent : MonoBehaviour
 		{
             for (int i = 0; i < Container.Count; i++)
             {
-                if (Container[i].item == _cost[j].item && Container[i].currentAmount > _cost[j].currentAmount)
+                if (Container[i].item == _cost[j].item && Container[i].currentAmount >= _cost[j].currentAmount)
                 {
                     //Container[i].AddAmount(-_amount);
                     count++;
