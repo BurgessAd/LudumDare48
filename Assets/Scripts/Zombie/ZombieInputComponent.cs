@@ -21,6 +21,7 @@ public class ZombieInputComponent : InputComponent
     public bool readjusting = false;
     private float hitTimer = 0;
     private bool hit = false;
+    private bool dead = false;
 
     int count = 0;
     public override Vector2 GetLookDirection()
@@ -74,7 +75,13 @@ public class ZombieInputComponent : InputComponent
 
     public void Die()
     {
-        Destroy(gameObject);  
+        animator.SetBool("Hit", false);
+        animator.SetBool("Dead", true);
+        //Destroy(GetComponent<BoxCollider2D>());
+        //Destroy(GetComponent<Rigidbody2D>());
+        Destroy(gameObject,5);
+        Destroy(movementComponent);
+        Destroy(this);
     }
 
     void FixedUpdate()
@@ -91,6 +98,10 @@ public class ZombieInputComponent : InputComponent
             hit = false;
             animator.SetBool("Hit", false);
         }
+        else if (dead)
+		{
+            dir = Vector2.zero;
+		}
         else
         {
 
@@ -161,10 +172,7 @@ public class ZombieInputComponent : InputComponent
                         health.ProcessHit(5.0f);
                     }
                 }
-                if (readjusting)
-                {
-                    movementComponent.SetDesiredSpeed(dir);
-                }
+             
                 else
                 {
                     movementComponent.SetDesiredSpeed(Vector2.zero);
@@ -203,25 +211,12 @@ public class ZombieInputComponent : InputComponent
     
     public void getTarget()
     {
-        //for (int i = 0; i < TerrainGenerator.entities.Count; i++)
-        //{
-        //    GameObject go = TerrainGenerator.entities[i];
-        //    if (go.GetComponent<EntityTag>().entityType == EntityTag.EntityType.Robot)
-        //    {
-        //        if ((go.transform.position - gameObject.transform.position).magnitude <= visionDist)
-        //        {
 
-        //            target = go;
-        //            break;
-        //        }
-        //    }
-            
-        //}
     }
 
     void OnDestroy()
     {
-        //TerrainGenerator.entities.Remove(gameObject);
+        
     }
 
 
