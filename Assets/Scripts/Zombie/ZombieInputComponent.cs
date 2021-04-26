@@ -77,6 +77,7 @@ public class ZombieInputComponent : InputComponent
     {
         animator.SetBool("Hit", false);
         animator.SetBool("Dead", true);
+        FindObjectOfType<AudioManager>().Play("SkeletonDeath");
         //Destroy(GetComponent<BoxCollider2D>());
         //Destroy(GetComponent<Rigidbody2D>());
         Destroy(gameObject,5);

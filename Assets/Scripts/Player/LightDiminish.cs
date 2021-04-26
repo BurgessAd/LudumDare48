@@ -23,6 +23,7 @@ public class LightDiminish : MonoBehaviour
         globalLight.intensity = 5;
         persLight.intensity = 0;
         lightS.intensity = 0;
+        FindObjectOfType<AudioManager>().PlaySoundtrack("AboveGround");
     }
 
     // Update is called once per frame
@@ -32,8 +33,9 @@ public class LightDiminish : MonoBehaviour
 		{
 			if (onSurface)
 			{
-                
                 onSurface = false;
+                FindObjectOfType<AudioManager>().StopSoundtrack("AboveGround");
+                FindObjectOfType<AudioManager>().PlaySoundtrack("BelowGround");
             }
 
             if(globalLight.intensity != 0.58f)
@@ -61,6 +63,8 @@ public class LightDiminish : MonoBehaviour
                 globalLight.intensity = 5;
                 persLight.intensity = 0;
                 lightS.intensity = 0;
+                FindObjectOfType<AudioManager>().StopSoundtrack("BelowGround");
+                FindObjectOfType<AudioManager>().PlaySoundtrack("AboveGround");
             }
 		}
 

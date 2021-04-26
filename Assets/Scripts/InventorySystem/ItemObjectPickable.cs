@@ -10,15 +10,13 @@ public class ItemObjectPickable : MonoBehaviour
     private ItemObject objectType;
     private int objectNum;
     private SpriteRenderer spriteRenderer;
-    private SoundComponent soundComponent;
+    //private SoundComponent soundComponent;
     private AudioSource audioSource;
     private BoxCollider2D collider2D;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        audioSource = GetComponent<AudioSource>();
-        soundComponent = GetComponent<SoundComponent>();
         collider2D = GetComponent<BoxCollider2D>();
     }
 
@@ -43,7 +41,7 @@ public class ItemObjectPickable : MonoBehaviour
         {
             InventoryComponent inv = other.gameObject.GetComponent<InventoryComponent>();
             inv.AddItem(objectType, objectNum);
-            soundComponent.Play(audioSource);
+            FindObjectOfType<AudioManager>().Play("Pickup");
             spriteRenderer.enabled = false;
             collider2D.enabled = false;
             StartCoroutine(IIII());
