@@ -38,6 +38,11 @@ public class StartMenu : MonoBehaviour
         SceneManager.LoadScene(sceneName: "NickScene");
     }
 
+    public void Resume()
+	{
+        Time.timeScale = 1;
+	}
+
 
 
 }

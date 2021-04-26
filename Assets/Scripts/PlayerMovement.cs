@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform pickPos;
     public Transform headPos;
     public Transform pivotPos;
+    public Canvas pause;
 
     [HideInInspector] public bool hasFlare;
     [Range(1,100)] public float runSpeed = 40f;
@@ -70,6 +71,20 @@ public class PlayerMovement : MonoBehaviour
             rb.AddTorque(-direction.normalized.x*5);
             StartCoroutine(DespawnFlare(flareDespawnTime, flare));
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+			if (pause.enabled)
+			{
+                Time.timeScale = 1;
+			}
+			else
+			{
+                Time.timeScale = 0;
+			}
+            pause.enabled = !pause.enabled;
+		}
+
     }
 
     IEnumerator DespawnFlare(float flareDespawnTime, GameObject flare){
